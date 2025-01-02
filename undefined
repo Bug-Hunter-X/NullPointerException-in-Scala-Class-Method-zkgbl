@@ -1,0 +1,23 @@
+```scala
+class MyClass(val value: Int) {
+  def add(other: MyClass): MyClass = {
+    //Safe way to handle potential null values
+    other match {
+      case null => this //Return this if other is null
+      case _ => new MyClass(this.value + other.value)
+    }
+  }
+}
+
+object Main extends App {
+  val obj1 = new MyClass(5)
+  val obj2 = new MyClass(10)
+  val result = obj1.add(obj2)
+  println(result.value) // prints 15
+
+  // This will now work correctly
+  val obj3: MyClass = null
+  val result2 = obj1.add(obj3) 
+  println(result2.value) // Prints 5.  obj1 remains unchanged.
+}
+```
